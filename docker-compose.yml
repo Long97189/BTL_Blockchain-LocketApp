@@ -1,0 +1,51 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+      - ./backend/sql/init.sql:/docker-entrypoint-initdb.d/init.sql:ro
+
+  api:
+    build:
+      context: ./backend
+    restart: unless-stopped
+    depends_on:
+      - postgres
+    environment:
+      PORT: ${PORT}
+      DATABASE_URL: ${DOCKER_DATABASE_URL}
+      JWT_SECRET: ${JWT_SECRET}
+      FRONTEND_ORIGIN: ${FRONTEND_ORIGIN}
+      UPLOAD_DIR: ${UPLOAD_DIR}
+      CLOUDINARY_CLOUD_NAME: ${CLOUDINARY_CLOUD_NAME}
+      CLOUDINARY_API_KEY: ${CLOUDINARY_API_KEY}
+      CLOUDINARY_API_SECRET: ${CLOUDINARY_API_SECRET}
+      BLOCKCHAIN_RPC_URL: ${BLOCKCHAIN_RPC_URL}
+      BLOCKCHAIN_RELAYER_PRIVATE_KEY: ${BLOCKCHAIN_RELAYER_PRIVATE_KEY}
+      PROOF_REGISTRY_ADDRESS: ${PROOF_REGISTRY_ADDRESS}
+      PROOF_CHAIN_ID: ${PROOF_CHAIN_ID}
+      COLLECTIBLE_MOMENT_ADDRESS: ${COLLECTIBLE_MOMENT_ADDRESS}
+      FRIENDSHIP_MILESTONE_ADDRESS: ${FRIENDSHIP_MILESTONE_ADDRESS}
+    ports:
+      - "4000:4000"
+
+  web:
+    build:
+      context: ./frontend
+      args:
+        REACT_APP_API_URL: ${REACT_APP_API_URL}
+    restart: unless-stopped
+    depends_on:
+      - api
+    ports:
+      - "3000:80"
+
+volumes:
+  postgres-data:

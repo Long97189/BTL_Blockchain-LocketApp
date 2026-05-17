@@ -1,0 +1,2589 @@
+:root {
+  color-scheme: dark;
+  --bg: #030303;
+  --panel: #111111;
+  --panel-soft: #1f1f1f;
+  --panel-elevated: #252525;
+  --border: rgba(255, 255, 255, 0.08);
+  --ink: #ffffff;
+  --muted: rgba(255, 255, 255, 0.62);
+  --muted-strong: rgba(255, 255, 255, 0.78);
+  --shadow: 0 28px 80px rgba(0, 0, 0, 0.48);
+  --accent: #f2ba22;
+  --danger: #ff6b6b;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+  min-height: 100%;
+}
+
+body {
+  margin: 0;
+  background:
+    radial-gradient(circle at top center, rgba(66, 66, 66, 0.2), transparent 24%),
+    linear-gradient(180deg, #090909 0%, #020202 100%);
+  color: var(--ink);
+  font-family: "Avenir Next", "Segoe UI", sans-serif;
+  overflow: hidden;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button,
+input,
+textarea {
+  font: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+input,
+textarea {
+  width: 100%;
+  border: 0;
+  outline: 0;
+}
+
+.auth-shell,
+.mobile-stage,
+.screen-message {
+  height: 100vh;
+  height: 100dvh;
+  min-height: 100vh;
+  min-height: 100dvh;
+}
+
+.auth-shell,
+.mobile-stage {
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.auth-shell {
+  align-items: center;
+  padding: 24px 16px;
+}
+
+.auth-card {
+  width: min(100%, 430px);
+  background: rgba(16, 16, 16, 0.96);
+  border: 1px solid var(--border);
+  border-radius: 36px;
+  box-shadow: var(--shadow);
+  padding: 32px 24px;
+}
+
+.auth-card--wide {
+  width: min(100%, 430px);
+}
+
+.eyebrow {
+  margin: 0 0 10px;
+  color: var(--muted);
+  font-size: 12px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.eyebrow--light {
+  color: rgba(255, 255, 255, 0.52);
+}
+
+h1,
+h2,
+h3,
+p {
+  margin-top: 0;
+}
+
+h1 {
+  margin-bottom: 12px;
+  font-size: clamp(2.2rem, 7vw, 3rem);
+  line-height: 1;
+  letter-spacing: -0.04em;
+}
+
+h2 {
+  margin-bottom: 0;
+  font-size: 1.1rem;
+  letter-spacing: -0.03em;
+}
+
+.auth-copy,
+.muted-copy {
+  color: var(--muted);
+  line-height: 1.6;
+}
+
+.stack {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  color: var(--muted-strong);
+  font-size: 14px;
+}
+
+.field input,
+.field textarea {
+  background: #1a1a1a;
+  color: var(--ink);
+  padding: 16px 18px;
+  border-radius: 18px;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+/* Password field with show/hide toggle */
+.password-input-wrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.password-input-wrap input {
+  flex: 1;
+  background: #1a1a1a;
+  color: var(--ink);
+  padding: 16px 52px 16px 18px; /* right padding reserves space for button */
+  border-radius: 18px;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  width: 100%;
+}
+
+.password-toggle-btn {
+  position: absolute;
+  right: 14px;
+  background: transparent;
+  border: 0;
+  color: var(--muted);
+  font-size: 1.1rem;
+  padding: 4px;
+  line-height: 1;
+  cursor: pointer;
+  transition: color 0.15s ease;
+}
+
+.password-toggle-btn:hover {
+  color: var(--ink);
+}
+
+
+.primary-button,
+.ghost-button,
+.sheet-button,
+.camera-submit-button {
+  border: 0;
+  transition: transform 0.15s ease, opacity 0.15s ease, background 0.15s ease;
+}
+
+.primary-button,
+.camera-submit-button {
+  border-radius: 22px;
+  padding: 15px 18px;
+  background: var(--ink);
+  color: #060606;
+  font-weight: 700;
+}
+
+.ghost-button {
+  border-radius: 18px;
+  padding: 12px 16px;
+  background: rgba(255, 255, 255, 0.08);
+  color: var(--ink);
+}
+
+.primary-button:hover,
+.ghost-button:hover,
+.sheet-button:hover,
+.camera-submit-button:hover,
+.round-icon-button:hover,
+.dock-button:hover,
+.toolbar-pill:hover {
+  transform: translateY(-1px);
+}
+
+.primary-button:disabled,
+.ghost-button:disabled,
+.sheet-button:disabled,
+.camera-submit-button:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.auth-footnote {
+  margin-top: 18px;
+  color: var(--muted);
+}
+
+.error-text {
+  margin: 0;
+  color: var(--danger);
+  line-height: 1.5;
+}
+
+.error-text--floating {
+  padding: 0 24px 12px;
+}
+
+.error-text--compact {
+  font-size: 14px;
+}
+
+.screen-message {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--muted);
+  padding: 24px;
+}
+
+.phone-shell {
+  width: min(100%, 430px);
+  height: 100vh;
+  height: 100dvh;
+  min-height: 100vh;
+  min-height: 100dvh;
+  background: #000000;
+  color: var(--ink);
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.phone-shell--editor,
+.phone-shell--profile {
+  padding-bottom: 110px;
+}
+
+/* Profile shell needs to scroll — override the base overflow:hidden */
+.phone-shell--profile {
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Stick the statusbar+toolbar to the top of the scrolling profile shell */
+.phone-shell--profile .phone-statusbar,
+.phone-shell--profile .phone-toolbar {
+  position: sticky;
+  z-index: 10;
+  background: #000;
+}
+
+.phone-shell--profile .phone-statusbar {
+  top: 0;
+}
+
+.phone-shell--profile .phone-toolbar {
+  top: 58px; /* height of statusbar */
+}
+
+
+.phone-shell--feed {
+  /* status-bar + toolbar float on top of pager via absolute overlay;
+     grid rows: [statusbar hidden spacer] [pager flex:1] [dock] */
+  display: flex;
+  flex-direction: column;
+  padding-bottom: 0;
+  position: relative; /* anchor for overlay children */
+}
+
+.phone-statusbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 24px 22px 10px;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.phone-statusbar__icons {
+  color: var(--muted);
+}
+
+.phone-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 8px 18px 18px;
+}
+
+.round-icon-button {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  border: 0;
+  background: #252525;
+  color: var(--ink);
+  display: grid;
+  place-items: center;
+  font-size: 1.5rem;
+  flex-shrink: 0;
+}
+
+.round-icon-button--small {
+  width: 40px;
+  height: 40px;
+  font-size: 1.2rem;
+}
+
+.round-icon-button--ghost {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.round-icon-button__image {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.toolbar-pill {
+  min-height: 56px;
+  padding: 0 24px;
+  border-radius: 28px;
+  border: 0;
+  background: #2b2b2b;
+  color: var(--ink);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  font-weight: 700;
+  font-size: 1.05rem;
+  white-space: nowrap;
+  flex: 1;
+}
+
+.toolbar-pill--static {
+  pointer-events: none;
+}
+
+.editor-screen,
+.profile-screen {
+  padding: 0 14px;
+}
+
+/* ═══════════════════════════════════════
+   Legacy feed utilities (kept for other pages)
+═══════════════════════════════════════ */
+.vertical-feed {
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+}
+
+/* ═══════════════════════════════════════
+   Overlay status-bar & toolbar for feed
+═══════════════════════════════════════ */
+.phone-statusbar--overlay,
+.phone-toolbar--overlay {
+  position: absolute;
+  left: 0;
+  right: 0;
+  z-index: 12; /* Must be above .profile-tab-bar (z-index: 11) */
+  pointer-events: none; /* pass through clicks to slides below */
+}
+
+.phone-statusbar--overlay {
+  top: 0;
+}
+
+.phone-toolbar--overlay {
+  top: 44px; /* sits right below status bar */
+  pointer-events: auto; /* toolbar itself is interactive */
+}
+
+/* ═══════════════════════════════════════
+   Locket-style full-page pager
+═══════════════════════════════════════ */
+.locket-pager {
+  flex: 1;
+  position: relative;
+  overflow: hidden;
+  background: #000;
+  /* touch-action lets us capture swipes */
+  touch-action: pan-y;
+}
+
+.locket-pager__error {
+  position: absolute;
+  top: 12px;
+  left: 0;
+  right: 0;
+  z-index: 20;
+  text-align: center;
+}
+
+/* The sliding track — pushed up/down via inline transform */
+.locket-pager__track {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  /* height is num-pages × 100% — we let JS set translate instead */
+  transition: transform 0.42s cubic-bezier(0.4, 0, 0.2, 1);
+  will-change: transform;
+}
+
+/* Each page exactly fills the pager viewport */
+.locket-pager__page {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 100%;
+  /* vertical position set via --page-index CSS var below */
+}
+
+/* We position each page with a data-index trick via inline style from JS */
+.locket-pager__page:nth-child(1)  { top: calc(0 * 100%); }
+.locket-pager__page:nth-child(2)  { top: calc(1 * 100%); }
+.locket-pager__page:nth-child(3)  { top: calc(2 * 100%); }
+.locket-pager__page:nth-child(4)  { top: calc(3 * 100%); }
+.locket-pager__page:nth-child(5)  { top: calc(4 * 100%); }
+.locket-pager__page:nth-child(6)  { top: calc(5 * 100%); }
+.locket-pager__page:nth-child(7)  { top: calc(6 * 100%); }
+.locket-pager__page:nth-child(8)  { top: calc(7 * 100%); }
+.locket-pager__page:nth-child(9)  { top: calc(8 * 100%); }
+.locket-pager__page:nth-child(10) { top: calc(9 * 100%); }
+.locket-pager__page:nth-child(11) { top: calc(10 * 100%); }
+.locket-pager__page:nth-child(12) { top: calc(11 * 100%); }
+.locket-pager__page:nth-child(13) { top: calc(12 * 100%); }
+.locket-pager__page:nth-child(14) { top: calc(13 * 100%); }
+.locket-pager__page:nth-child(15) { top: calc(14 * 100%); }
+.locket-pager__page:nth-child(16) { top: calc(15 * 100%); }
+.locket-pager__page:nth-child(17) { top: calc(16 * 100%); }
+.locket-pager__page:nth-child(18) { top: calc(17 * 100%); }
+.locket-pager__page:nth-child(19) { top: calc(18 * 100%); }
+.locket-pager__page:nth-child(20) { top: calc(19 * 100%); }
+
+/* Right-side dot indicators */
+.locket-pager__dots {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  z-index: 9;
+}
+
+.locket-pager__dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.3);
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.locket-pager__dot--active {
+  background: #fff;
+  transform: scale(1.5);
+}
+
+/* Swipe hint — floats above bottom dock, fades out */
+.locket-pager__swipe-hint {
+  position: absolute;
+  bottom: 116px;          /* sits just above the dock */
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 11px;
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.45);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  z-index: 9;
+  animation: hint-fade 2.8s ease 1.5s forwards;
+  pointer-events: none;
+  white-space: nowrap;
+  background: rgba(0, 0, 0, 0.35);
+  backdrop-filter: blur(6px);
+  padding: 5px 14px;
+  border-radius: 999px;
+}
+
+
+@keyframes hint-fade {
+  0%   { opacity: 1; }
+  70%  { opacity: 1; }
+  100% { opacity: 0; }
+}
+
+/* ═══════════════════════════════════════
+   Locket slide — card floating on black bg
+═══════════════════════════════════════ */
+.locket-slide {
+  width: 100%;
+  height: 100%;
+  background: #000;
+  display: flex;
+  flex-direction: column;
+  padding-top: 130px;   /* Feed: clears the status-bar + toolbar overlay (ends ~126px) */
+  padding-bottom: 4px;  /* Dock is in normal flow, no need to reserve space */
+  overflow: hidden;
+}
+
+/* Profile: tab bar is in normal flow above PostPager, so slide
+   only needs minimal top padding (no overlay to clear). */
+.profile-tab-bar ~ * .locket-slide {
+  padding-top: 8px;
+  padding-bottom: 4px;
+}
+
+/* ── Photo card (rounded, NOT full-bleed) ── */
+.locket-card {
+  position: relative;
+  margin: 0 14px;
+  /* Thay vì flex: 1, ta dùng tỷ lệ khung hình cố định 3:4 chuẩn của camera locket
+     để kích thước ảnh ở Profile và Feed luôn đồng nhất 100% */
+  aspect-ratio: 3 / 4;
+  height: auto;
+  min-height: 0;
+  border-radius: 34px;
+  overflow: hidden;
+  background: #111;
+  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.6);
+  display: flex;
+}
+
+.locket-card__image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  user-select: none;
+}
+
+/* Caption text overlay at the bottom of the card */
+.locket-card__caption-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 40px 18px 20px;
+  background: linear-gradient(0deg, rgba(0,0,0,0.55) 0%, transparent 100%);
+  pointer-events: none;
+}
+
+.locket-card__caption {
+  margin: 0;
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: #fff;
+  text-align: center;
+  text-shadow: 0 2px 10px rgba(0,0,0,0.55);
+  line-height: 1.4;
+}
+
+/* Add friend badge — top-right of card */
+.locket-card__add-friend-btn {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  border: 0;
+  border-radius: 999px;
+  padding: 7px 14px;
+  background: rgba(0,0,0,0.52);
+  backdrop-filter: blur(8px);
+  color: #fff;
+  font-weight: 700;
+  font-size: 13px;
+  transition: background 0.15s ease;
+}
+
+.locket-card__add-friend-btn:hover {
+  background: rgba(0,0,0,0.72);
+}
+
+/* ── Author row — below card, on pure black ── */
+.locket-meta {
+  flex-shrink: 0;
+  padding: 10px 20px 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center; /* Căn giữa hoàn toàn */
+  position: relative; /* Để chứa nút actions ở góc phải */
+}
+
+.locket-meta__author {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  max-width: 70%; /* Tránh bị đè bởi nút action */
+}
+
+.locket-meta__avatar {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  object-fit: cover;
+  flex-shrink: 0;
+  border: 1.5px solid rgba(255,255,255,0.25);
+}
+
+.locket-meta__avatar--placeholder {
+  display: grid;
+  place-items: center;
+  background: #2a2a2a;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.locket-meta__info {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 2px;
+}
+
+.locket-meta__name {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #fff;
+  line-height: 1.1;
+}
+
+.locket-meta__time {
+  font-size: 0.75rem;
+  color: rgba(255, 255, 255, 0.52);
+  margin-left: 0;
+  line-height: 1.1;
+}
+
+/* Compact verify/mint buttons next to author */
+.locket-meta__actions {
+  display: flex;
+  gap: 6px;
+  flex-shrink: 0;
+  position: absolute;
+  right: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.action-btn--compact {
+  width: 36px;
+  height: 36px;
+  padding: 0;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  font-size: 1rem;
+}
+
+/* Clickable badge hover effect (admin) */
+a.card-badge {
+  text-decoration: none;
+  cursor: pointer;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+a.card-badge:hover {
+  transform: scale(1.06);
+}
+
+a.card-badge--verified:hover {
+  box-shadow: 0 0 12px rgba(34, 197, 94, 0.4);
+}
+
+a.card-badge--nft:hover {
+  box-shadow: 0 0 12px rgba(124, 58, 237, 0.5);
+}
+
+/* ── Reaction bar — below author ── */
+.locket-reactions {
+  flex-shrink: 0;
+  padding: 4px 20px 12px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.locket-reactions__message-pill {
+  flex: 1;
+  min-height: 50px;
+  border-radius: 25px;
+  border: 0;
+  background: #1c1c1c;
+  color: rgba(255,255,255,0.42);
+  text-align: left;
+  padding: 0 20px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  transition: background 0.15s ease;
+}
+
+.locket-reactions__message-pill:hover {
+  background: #252525;
+}
+
+/* stacked-post kept for backward compat but no longer used in Feed */
+.vertical-feed--stacked { gap: 0; }
+.stacked-post { display: none; }
+
+
+
+.moment-card {
+  background: #050505;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 34px;
+  overflow: hidden;
+  box-shadow: 0 18px 44px rgba(0, 0, 0, 0.34);
+  width: 100%;
+  height: 100%;
+  display: grid;
+  grid-template-rows: minmax(0, 1fr) auto;
+}
+
+.moment-card__media {
+  position: relative;
+  flex: 1;
+  min-height: 0;
+}
+
+.moment-card__image {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+  background: #111;
+}
+
+.moment-card__friend-button {
+  position: absolute;
+  right: 16px;
+  top: 16px;
+  border: 0;
+  border-radius: 999px;
+  padding: 10px 14px;
+  background: rgba(0, 0, 0, 0.62);
+  color: #fff;
+  font-weight: 700;
+}
+
+/* Removed old proof-row and moment-card CSS here */
+
+/* ══════════════════════════════════════════════
+   New card badges (top-left overlay on photo)
+══════════════════════════════════════════════ */
+.locket-card__top-badges {
+  position: absolute;
+  top: 14px;
+  left: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  z-index: 2;
+}
+
+.card-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 5px 11px 5px 8px;
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.03em;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+.card-badge__icon {
+  font-size: 13px;
+  line-height: 1;
+}
+
+.card-badge--verified {
+  background: rgba(34, 197, 94, 0.22);
+  color: #86efac;
+  border: 1px solid rgba(34, 197, 94, 0.28);
+}
+
+.card-badge--nft {
+  background: rgba(124, 58, 237, 0.28);
+  color: #c4b5fd;
+  border: 1px solid rgba(124, 58, 237, 0.35);
+  animation: nft-badge-glow 2s ease-in-out infinite alternate;
+}
+
+@keyframes nft-badge-glow {
+  0%   { box-shadow: 0 0 6px rgba(124, 58, 237, 0.35); }
+  100% { box-shadow: 0 0 16px rgba(124, 58, 237, 0.6), 0 0 28px rgba(59, 130, 246, 0.25); }
+}
+
+/* NFT badge overlay on card image — legacy kept for backward compat */
+.locket-card__nft-badge {
+  position: absolute;
+  top: 14px;
+  left: 14px;
+  border-radius: 999px;
+  padding: 6px 14px;
+  background: linear-gradient(135deg, rgba(124, 58, 237, 0.85), rgba(59, 130, 246, 0.85));
+  backdrop-filter: blur(8px);
+  color: #fff;
+  font-weight: 800;
+  font-size: 12px;
+  text-shadow: 0 1px 3px rgba(0,0,0,0.3);
+  z-index: 2;
+}
+
+/* ══════════════════════════════════════════════
+   Author meta — improved layout
+══════════════════════════════════════════════ */
+.locket-meta__info {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
+
+.locket-meta__name {
+  font-size: 0.92rem;
+  font-weight: 700;
+  color: #fff;
+  line-height: 1.2;
+}
+
+.locket-meta__time {
+  font-size: 0.78rem;
+  color: rgba(255,255,255,0.45);
+}
+
+/* ══════════════════════════════════════════════
+   Blockchain action row — redesigned
+   Two columns: [verify section] [divider] [NFT section]
+══════════════════════════════════════════════ */
+.locket-action-row {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  gap: 0;
+  padding: 4px 16px 6px;
+  min-height: 46px;
+}
+
+.locket-action-row__item {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.locket-action-row__divider {
+  width: 1px;
+  height: 28px;
+  background: rgba(255,255,255,0.1);
+  flex-shrink: 0;
+  margin: 0 6px;
+}
+
+/* Action status — read-only state indicator */
+.action-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 12px;
+  font-weight: 700;
+  border-radius: 999px;
+  padding: 5px 12px;
+  white-space: nowrap;
+}
+
+.action-status__icon {
+  font-size: 13px;
+  line-height: 1;
+}
+
+.action-status__label {
+  font-size: 12px;
+}
+
+/* Admin-only explorer link */
+.action-status__link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.12);
+  color: rgba(255,255,255,0.7);
+  font-size: 11px;
+  font-weight: 800;
+  margin-left: 2px;
+  transition: background 0.15s ease, color 0.15s ease;
+  text-decoration: none;
+}
+
+.action-status__link:hover {
+  background: rgba(255,255,255,0.22);
+  color: #fff;
+}
+
+.action-status--verified {
+  background: rgba(34, 197, 94, 0.14);
+  color: #86efac;
+  border: 1px solid rgba(34, 197, 94, 0.2);
+}
+
+.action-status--nft {
+  background: rgba(124, 58, 237, 0.15);
+  color: #c4b5fd;
+  border: 1px solid rgba(124, 58, 237, 0.22);
+}
+
+.action-status--unverified {
+  background: rgba(255,255,255,0.04);
+  color: rgba(255,255,255,0.32);
+  border: 1px solid rgba(255,255,255,0.06);
+}
+
+/* Action buttons — interactive states */
+.action-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 12px;
+  font-weight: 800;
+  border: 0;
+  border-radius: 999px;
+  padding: 6px 14px;
+  white-space: nowrap;
+  transition: transform 0.15s ease, background 0.15s ease, opacity 0.15s ease;
+  cursor: pointer;
+}
+
+.action-btn:hover {
+  transform: translateY(-1px);
+}
+
+.action-btn:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.action-btn__spinner {
+  display: inline-block;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+.action-btn--verify {
+  background: rgba(242, 186, 34, 0.16);
+  color: #f7d979;
+  border: 1px solid rgba(242, 186, 34, 0.24);
+}
+
+.action-btn--verify:hover:not(:disabled) {
+  background: rgba(242, 186, 34, 0.26);
+}
+
+.action-btn--mint {
+  background: rgba(124, 58, 237, 0.18);
+  color: #c4b5fd;
+  border: 1px solid rgba(124, 58, 237, 0.26);
+}
+
+.action-btn--mint:hover:not(:disabled) {
+  background: rgba(124, 58, 237, 0.30);
+}
+
+/* ── Reaction bar tweak — add 💬 icon */
+.locket-reactions__message-pill {
+  flex: 1;
+  min-height: 46px;
+  border-radius: 23px;
+  border: 0;
+  background: #1c1c1c;
+  color: rgba(255,255,255,0.38);
+  text-align: left;
+  padding: 0 18px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  transition: background 0.15s ease;
+}
+
+.locket-reactions__message-pill:hover {
+  background: #242424;
+}
+
+/* More reactions button */
+.reaction-icon-button--more {
+  font-size: 1rem;
+  font-weight: 900;
+  color: rgba(255,255,255,0.5);
+}
+
+/* Reaction picker & summary — tighten spacing */
+.reaction-picker {
+  padding: 4px 16px 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.reaction-picker__item {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.06);
+  color: #fff;
+  font-size: 1.5rem;
+  display: grid;
+  place-items: center;
+  transition: transform 0.12s ease, background 0.12s ease;
+}
+
+.reaction-picker__item:hover {
+  transform: scale(1.14);
+  background: rgba(255,255,255,0.12);
+}
+
+.reaction-summary {
+  padding: 0 16px 6px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+
+/* NFT badge overlay on card image */
+.locket-card__nft-badge {
+  position: absolute;
+  top: 14px;
+  left: 14px;
+  border-radius: 999px;
+  padding: 6px 14px;
+  background: linear-gradient(135deg, rgba(124, 58, 237, 0.85), rgba(59, 130, 246, 0.85));
+  backdrop-filter: blur(8px);
+  color: #fff;
+  font-weight: 800;
+  font-size: 12px;
+  text-shadow: 0 1px 3px rgba(0,0,0,0.3);
+  z-index: 2;
+  animation: nft-badge-glow 2s ease-in-out infinite alternate;
+}
+
+@keyframes nft-badge-glow {
+  0%   { box-shadow: 0 0 6px rgba(124, 58, 237, 0.4); }
+  100% { box-shadow: 0 0 16px rgba(124, 58, 237, 0.7), 0 0 30px rgba(59, 130, 246, 0.3); }
+}
+
+.moment-card__body {
+  padding: 16px;
+  flex-shrink: 0;
+  background: #050505;
+}
+
+.moment-card__author-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.moment-card__author {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.moment-card__author strong,
+.reaction-user-row strong {
+  display: block;
+}
+
+.moment-card__author span,
+.reaction-user-row p {
+  color: var(--muted);
+  font-size: 13px;
+}
+
+.moment-card__author-avatar,
+.reaction-user-row__avatar {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  object-fit: cover;
+  flex-shrink: 0;
+}
+
+.moment-card__author-avatar--placeholder,
+.reaction-user-row__avatar--placeholder {
+  display: grid;
+  place-items: center;
+  background: #232323;
+}
+
+.moment-card__caption {
+  margin-bottom: 14px;
+  font-size: 1.05rem;
+  font-weight: 700;
+  line-height: 1.5;
+}
+
+.moment-card__actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.reaction-quickbar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.reaction-icon-button,
+.reaction-picker__item,
+.reaction-chip,
+.reaction-link-button {
+  border: 0;
+}
+
+.reaction-icon-button {
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  background: #1e1e1e;
+  color: #fff;
+  font-size: 1.35rem;
+  display: grid;
+  place-items: center;
+  transition: transform 0.12s ease, background 0.12s ease;
+}
+
+.reaction-icon-button:hover {
+  transform: scale(1.12);
+  background: #2a2a2a;
+}
+
+.reaction-icon-button--active,
+.reaction-picker__item--active,
+.reaction-chip--active {
+  background: rgba(242, 186, 34, 0.18);
+  box-shadow: inset 0 0 0 1px rgba(242, 186, 34, 0.48);
+}
+
+.reaction-picker {
+  margin-top: 14px;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.reaction-picker__item {
+  min-height: 52px;
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.06);
+  color: #fff;
+  font-size: 1.5rem;
+}
+
+.reaction-summary {
+  margin-top: 14px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.reaction-chip {
+  min-height: 38px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.06);
+  color: #fff;
+  padding: 0 12px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.reaction-chip strong {
+  font-size: 13px;
+}
+
+.reaction-link-button {
+  background: transparent;
+  color: var(--muted);
+  font-weight: 700;
+}
+
+.moment-card__hint {
+  margin: 0;
+  color: var(--muted);
+  font-size: 14px;
+}
+
+
+/* ── Compact reaction list — grouped by user ── */
+.reaction-compact-list {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.reaction-compact-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 10px 14px;
+  border-radius: 16px;
+  transition: background 0.12s ease;
+}
+
+.reaction-compact-row:hover {
+  background: rgba(255, 255, 255, 0.04);
+}
+
+/* Left side: avatar + username */
+.reaction-compact-row__user {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex: 1;
+  min-width: 0;
+}
+
+.reaction-compact-row__avatar {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  object-fit: cover;
+  flex-shrink: 0;
+}
+
+.reaction-compact-row__avatar--placeholder {
+  display: grid;
+  place-items: center;
+  background: #2a2a2a;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.reaction-compact-row__name {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--ink);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Right side: emoji icons inline */
+.reaction-compact-row__emojis {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  flex-shrink: 0;
+}
+
+.reaction-compact-row__icon {
+  font-size: 1.3rem;
+  line-height: 1;
+  display: inline-block;
+}
+
+
+
+
+.hero-story {
+  position: relative;
+  border-radius: 44px;
+  overflow: hidden;
+  background: #121212;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
+}
+
+.hero-story__image {
+  width: 100%;
+  aspect-ratio: 0.75;
+  object-fit: cover;
+  display: block;
+}
+
+.hero-story__overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 18px 18px 24px;
+  background: linear-gradient(180deg, transparent 45%, rgba(0, 0, 0, 0.68) 100%);
+}
+
+.hero-story__caption {
+  margin: 0;
+  font-size: clamp(1.6rem, 6vw, 2.2rem);
+  font-weight: 800;
+  text-align: center;
+  letter-spacing: -0.04em;
+  text-shadow: 0 3px 18px rgba(0, 0, 0, 0.45);
+}
+
+.hero-story__friend-button {
+  align-self: flex-end;
+  margin-bottom: auto;
+  margin-top: 8px;
+  border: 0;
+  border-radius: 999px;
+  padding: 10px 14px;
+  background: rgba(0, 0, 0, 0.56);
+  color: #fff;
+  font-weight: 700;
+}
+
+.story-meta {
+  padding: 18px 8px 10px;
+}
+
+.story-meta__author {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 1rem;
+  font-weight: 800;
+}
+
+.story-meta__author small {
+  color: var(--muted);
+  font-size: 0.95rem;
+  font-weight: 700;
+}
+
+.story-meta__avatar {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.story-meta__avatar--placeholder {
+  display: grid;
+  place-items: center;
+  background: #242424;
+}
+
+.story-strip {
+  display: flex;
+  gap: 10px;
+  overflow-x: auto;
+  padding: 6px 4px 16px;
+  scrollbar-width: none;
+}
+
+.story-strip::-webkit-scrollbar {
+  display: none;
+}
+
+.story-avatar {
+  min-width: 66px;
+  background: transparent;
+  border: 0;
+  color: var(--ink);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  padding: 0;
+}
+
+.story-avatar__image {
+  width: 58px;
+  height: 58px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid rgba(255, 255, 255, 0.2);
+}
+
+.story-avatar--active .story-avatar__image {
+  border-color: var(--accent);
+}
+
+.story-avatar__image--placeholder {
+  display: grid;
+  place-items: center;
+  background: #242424;
+}
+
+.story-avatar__label {
+  font-size: 12px;
+  color: var(--muted);
+  white-space: nowrap;
+}
+
+.reaction-bar {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 0 24px;
+}
+
+.message-pill {
+  flex: 1;
+  min-height: 56px;
+  border-radius: 28px;
+  border: 0;
+  background: #2b2b2b;
+  color: rgba(255, 255, 255, 0.48);
+  text-align: left;
+  padding: 0 22px;
+  font-size: 1rem;
+  font-weight: 700;
+}
+
+.emoji-button {
+  width: 48px;
+  height: 48px;
+  border: 0;
+  border-radius: 50%;
+  background: transparent;
+  color: #fff;
+  font-size: 1.8rem;
+  padding: 0;
+}
+
+.bottom-dock {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  padding: 12px 46px 18px;
+  background: #000;
+}
+
+.phone-shell--feed .bottom-dock {
+  position: static;
+}
+
+.dock-button {
+  width: 56px;
+  height: 56px;
+  border: 0;
+  border-radius: 50%;
+  background: transparent;
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 2rem;
+  display: grid;
+  place-items: center;
+}
+
+.camera-button {
+  width: 88px;
+  height: 88px;
+  border-radius: 50%;
+  border: 4px solid var(--accent);
+  background: transparent;
+  padding: 8px;
+  display: grid;
+  place-items: center;
+  box-shadow: 0 0 0 8px rgba(242, 186, 34, 0.1);
+}
+
+.camera-button span {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background: #fff;
+  display: block;
+}
+
+/* Ghost variant — keeps layout spacing but invisible (used on profile page) */
+.camera-button--ghost {
+  width: 88px;
+  height: 88px;
+  border-radius: 50%;
+  border: 0;
+  background: transparent;
+  box-shadow: none;
+  pointer-events: none;
+}
+
+
+.bottom-sheet {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -110%;
+  background: linear-gradient(180deg, rgba(29, 29, 29, 0.98) 0%, rgba(14, 14, 14, 0.99) 100%);
+  border-top-left-radius: 30px;
+  border-top-right-radius: 30px;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  padding: 20px 18px 120px;
+  transition: bottom 0.24s ease;
+  max-height: 72vh;
+  overflow-y: auto;
+  z-index: 4;
+}
+
+.bottom-sheet--open {
+  bottom: 0;
+}
+
+.bottom-sheet__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 12px;
+  margin-bottom: 18px;
+}
+
+.sheet-list,
+.sheet-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.sheet-empty {
+  color: var(--muted);
+  line-height: 1.6;
+}
+
+.sheet-card {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 22px;
+  padding: 16px;
+}
+
+.sheet-card__identity {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+}
+
+.sheet-card__identity p {
+  margin: 6px 0 0;
+  color: var(--muted);
+  line-height: 1.5;
+  font-size: 14px;
+}
+
+.sheet-card__avatar {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  object-fit: cover;
+  flex-shrink: 0;
+}
+
+.sheet-card__avatar--placeholder {
+  display: grid;
+  place-items: center;
+  background: #242424;
+}
+
+.sheet-card__meta {
+  display: flex;
+  gap: 14px;
+  color: var(--muted);
+  font-size: 13px;
+  padding: 12px 0;
+}
+
+.sheet-button {
+  width: 100%;
+  min-height: 52px;
+  border-radius: 20px;
+  background: #f4f4f4;
+  color: #070707;
+  font-weight: 800;
+}
+
+.sheet-button--secondary {
+  background: rgba(255, 255, 255, 0.08);
+  color: #fff;
+}
+
+.sheet-button--danger {
+  background: rgba(255, 107, 107, 0.16);
+  color: #ffb5b5;
+}
+
+.empty-phone-state {
+  min-height: calc(100vh - 240px);
+  min-height: calc(100dvh - 240px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  gap: 14px;
+  padding: 30px 22px;
+}
+
+.empty-phone-state h2,
+.empty-phone-state p {
+  margin-bottom: 0;
+}
+
+.empty-phone-state p {
+  color: var(--muted);
+  line-height: 1.6;
+}
+
+.empty-phone-state--compact {
+  min-height: auto;
+  padding: 24px 0;
+}
+
+.empty-phone-state__actions {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.editor-screen {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.upload-frame {
+  display: block;
+  border-radius: 40px;
+  overflow: hidden;
+  background: #121212;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  min-height: 56vh;
+}
+
+.upload-frame__image {
+  width: 100%;
+  min-height: 56vh;
+  object-fit: cover;
+  display: block;
+}
+
+.upload-frame__placeholder {
+  min-height: 56vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  gap: 12px;
+  padding: 28px;
+  color: var(--muted);
+}
+
+.upload-frame__icon {
+  font-size: 2.4rem;
+  color: var(--accent);
+}
+
+/* Clickable upload frame */
+.upload-frame--interactive {
+  cursor: pointer;
+  position: relative;
+  transition: border-color 0.15s ease;
+}
+
+.upload-frame--interactive:hover {
+  border-color: rgba(255, 255, 255, 0.18);
+}
+
+/* Retake button over preview */
+.upload-frame__retake-btn {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  border: 0;
+  border-radius: 999px;
+  padding: 8px 16px;
+  background: rgba(0, 0, 0, 0.62);
+  backdrop-filter: blur(8px);
+  color: #fff;
+  font-weight: 700;
+  font-size: 13px;
+  transition: background 0.15s ease;
+}
+
+.upload-frame__retake-btn:hover {
+  background: rgba(0, 0, 0, 0.82);
+}
+
+/* Caption input inside the image frame */
+.upload-frame__caption-wrap {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 20px;
+  background: linear-gradient(to top, rgba(0,0,0,0.7) 0%, transparent 100%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.upload-frame__caption-input {
+  width: 100%;
+  background: transparent;
+  border: none;
+  color: #fff;
+  font-size: 1.1rem;
+  font-weight: 600;
+  text-align: center;
+  outline: none;
+  text-shadow: 0 1px 4px rgba(0,0,0,0.8);
+}
+
+.upload-frame__caption-input::placeholder {
+  color: rgba(255, 255, 255, 0.7);
+  text-shadow: 0 1px 4px rgba(0,0,0,0.8);
+}
+
+/* ═══════════════════════════════════════
+   Camera overlay — full-screen viewfinder
+═══════════════════════════════════════ */
+.camera-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 50;
+  background: #000;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+/* Live video feed */
+.camera-overlay__video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Mirror front camera for natural selfie view */
+.camera-overlay__video--mirrored {
+  transform: scaleX(-1);
+}
+
+/* Bottom controls bar */
+.camera-overlay__controls {
+  position: absolute;
+  bottom: 36px;
+  left: 0;
+  right: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  padding: 0 32px;
+  z-index: 2;
+}
+
+/* Close / Flip buttons */
+.camera-overlay__ctrl-btn {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  border: 0;
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(8px);
+  color: #fff;
+  font-size: 1.2rem;
+  display: grid;
+  place-items: center;
+  transition: background 0.15s ease, transform 0.15s ease;
+}
+
+.camera-overlay__ctrl-btn:hover {
+  background: rgba(0, 0, 0, 0.72);
+  transform: scale(1.08);
+}
+
+/* Shutter button */
+.camera-overlay__shutter {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  border: 4px solid #fff;
+  background: transparent;
+  padding: 6px;
+  display: grid;
+  place-items: center;
+  transition: transform 0.12s ease;
+  box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.2);
+}
+
+.camera-overlay__shutter span {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background: #fff;
+  display: block;
+  transition: transform 0.12s ease;
+}
+
+.camera-overlay__shutter:active span {
+  transform: scale(0.88);
+}
+
+/* Camera facing indicator */
+.camera-overlay__facing-badge {
+  position: absolute;
+  top: 24px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 12px;
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.75);
+  background: rgba(0, 0, 0, 0.46);
+  backdrop-filter: blur(6px);
+  border-radius: 999px;
+  padding: 6px 14px;
+  letter-spacing: 0.04em;
+  z-index: 2;
+  pointer-events: none;
+}
+
+/* Error state inside camera overlay */
+.camera-overlay__error {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  padding: 32px;
+  text-align: center;
+  color: var(--muted);
+  line-height: 1.6;
+  z-index: 2;
+}
+
+.camera-overlay__close-btn {
+  border: 0;
+  border-radius: 20px;
+  padding: 12px 28px;
+  background: rgba(255, 255, 255, 0.1);
+  color: #fff;
+  font-weight: 700;
+}
+
+.file-input-hidden {
+  display: none;
+}
+
+
+.editor-panel {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 26px;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.editor-textarea {
+  min-height: 88px;
+  resize: none;
+  background: transparent;
+  color: #fff;
+}
+
+.profile-screen {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.profile-hero {
+  text-align: center;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.02));
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 32px;
+  padding: 24px 18px;
+}
+
+.profile-hero__avatar {
+  width: 108px;
+  height: 108px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin: 0 auto 16px;
+  display: block;
+}
+
+.profile-hero__avatar--placeholder {
+  display: grid;
+  place-items: center;
+  background: #222;
+  font-size: 2rem;
+  font-weight: 800;
+}
+
+.profile-hero p {
+  color: var(--muted);
+  line-height: 1.6;
+}
+
+.profile-hero__stats {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+  margin: 20px 0;
+}
+
+.profile-hero__stats div {
+  padding: 14px 10px;
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.profile-hero__stats strong {
+  display: block;
+  font-size: 1.4rem;
+}
+
+.profile-hero__stats span {
+  color: var(--muted);
+  font-size: 13px;
+}
+
+.profile-post-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.profile-post-tile {
+  position: relative;
+  border-radius: 24px;
+  overflow: hidden;
+  background: #131313;
+}
+
+.profile-post-tile__image {
+  width: 100%;
+  aspect-ratio: 0.92;
+  object-fit: cover;
+  display: block;
+}
+
+.profile-post-tile__overlay {
+  position: absolute;
+  inset: auto 0 0;
+  padding: 12px;
+  background: linear-gradient(180deg, transparent 0%, rgba(0, 0, 0, 0.68) 100%);
+  font-size: 13px;
+  line-height: 1.4;
+}
+
+.avatar-preview {
+  width: 120px;
+  height: 120px;
+  object-fit: cover;
+  border-radius: 28px;
+}
+
+@media (min-width: 768px) {
+  .mobile-stage,
+  .auth-shell {
+    padding: 20px;
+  }
+
+  .phone-shell,
+  .auth-card {
+    min-height: calc(100vh - 40px);
+    min-height: calc(100dvh - 40px);
+    border-radius: 42px;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    box-shadow: var(--shadow);
+  }
+
+}
+
+/* ═══════════════════════════════════════
+   Profile page v2
+═══════════════════════════════════════ */
+
+.profile-screen {
+  display: flex;
+  flex-direction: column;
+}
+
+/* ── Hero ── */
+.profile-hero-v2 {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 24px 24px 28px;
+  gap: 10px;
+  text-align: center;
+}
+
+.profile-hero-v2__avatar {
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid rgba(255, 255, 255, 0.1);
+}
+
+.profile-hero-v2__avatar--placeholder {
+  display: grid;
+  place-items: center;
+  background: #222;
+  font-size: 2rem;
+  font-weight: 700;
+}
+
+.profile-hero-v2__name {
+  font-size: 1.4rem;
+  font-weight: 800;
+  margin: 4px 0 0;
+}
+
+.profile-hero-v2__bio {
+  font-size: 0.9rem;
+  color: var(--muted);
+  line-height: 1.5;
+  margin: 0;
+}
+
+/* Stats row */
+.profile-hero-v2__stats {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  margin-top: 6px;
+}
+
+.profile-stat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+}
+
+.profile-stat strong {
+  font-size: 1.2rem;
+  font-weight: 800;
+}
+
+.profile-stat span {
+  font-size: 0.78rem;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.profile-stat-divider {
+  width: 1px;
+  height: 28px;
+  background: rgba(255, 255, 255, 0.1);
+}
+
+/* Friend button */
+.profile-friend-btn {
+  margin-top: 6px;
+  padding: 10px 28px;
+  border-radius: 999px;
+  border: 0;
+  background: var(--ink);
+  color: #060606;
+  font-weight: 700;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: transform 0.15s ease, opacity 0.15s ease;
+}
+
+.profile-friend-btn:hover { opacity: 0.88; transform: scale(0.98); }
+
+.profile-friend-btn--active {
+  background: #2a2a2a;
+  color: var(--ink);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+/* round-icon-button active state */
+.round-icon-button--active {
+  background: rgba(255, 255, 255, 0.15);
+  color: var(--ink);
+}
+
+/* ── 2-column post grid ── */
+.profile-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3px;
+  padding: 3px;
+}
+
+.profile-grid__item {
+  position: relative;
+  aspect-ratio: 1;
+  overflow: hidden;
+  border-radius: 12px;
+  background: #111;
+  border: 0;
+  padding: 0;
+  cursor: pointer;
+  display: block;
+}
+
+.profile-grid__image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.2s ease;
+}
+
+.profile-grid__item:hover .profile-grid__image {
+  transform: scale(1.04);
+}
+
+/* Reaction badge bottom-left */
+.profile-grid__badge {
+  position: absolute;
+  bottom: 8px;
+  left: 8px;
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  background: rgba(0, 0, 0, 0.55);
+  backdrop-filter: blur(6px);
+  border-radius: 999px;
+  padding: 3px 8px;
+  font-size: 0.85rem;
+  line-height: 1;
+}
+
+.profile-grid__badge-count {
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: #fff;
+}
+
+/* Caption overlay bottom */
+.profile-grid__caption {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 20px 10px 10px;
+  background: linear-gradient(transparent, rgba(0,0,0,0.65));
+  font-size: 0.78rem;
+  color: rgba(255,255,255,0.9);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  border-radius: 0 0 12px 12px;
+}
+
+/* ═══════════════════════════════════════
+   Friendship Milestone UI
+═══════════════════════════════════════ */
+
+/* Milestone button in bottom dock */
+.camera-button--milestone {
+  width: 56px;
+  height: 56px;
+  background: linear-gradient(135deg, #f59e0b, #f97316) !important;
+  border: 0;
+  color: #fff;
+  font-size: 1.4rem;
+  display: grid;
+  place-items: center;
+  box-shadow: 0 4px 20px rgba(245, 158, 11, 0.4);
+  animation: milestone-pulse 2s ease-in-out infinite alternate;
+  padding: 0;
+}
+
+@keyframes milestone-pulse {
+  0%   { box-shadow: 0 4px 20px rgba(245, 158, 11, 0.3); }
+  100% { box-shadow: 0 4px 28px rgba(245, 158, 11, 0.6), 0 0 40px rgba(249, 115, 22, 0.2); }
+}
+
+/* Milestone list inside bottom sheet */
+.milestone-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 0 16px 24px;
+  max-height: 55vh;
+  overflow-y: auto;
+}
+
+/* Individual milestone card */
+.milestone-card {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 14px 16px;
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  transition: background 0.15s ease, border-color 0.15s ease;
+  opacity: 0.5;
+}
+
+.milestone-card--eligible {
+  opacity: 1;
+  background: rgba(245, 158, 11, 0.06);
+  border-color: rgba(245, 158, 11, 0.15);
+}
+
+.milestone-card--claimed {
+  opacity: 1;
+  background: rgba(34, 197, 94, 0.06);
+  border-color: rgba(34, 197, 94, 0.15);
+}
+
+.milestone-card__icon {
+  font-size: 1.8rem;
+  flex-shrink: 0;
+  width: 44px;
+  text-align: center;
+}
+
+.milestone-card__info {
+  flex: 1;
+  min-width: 0;
+}
+
+.milestone-card__info strong {
+  display: block;
+  font-size: 0.92rem;
+  color: #fff;
+  margin-bottom: 2px;
+}
+
+.milestone-card__info p {
+  margin: 0;
+  font-size: 0.78rem;
+  color: rgba(255, 255, 255, 0.5);
+  line-height: 1.4;
+}
+
+.milestone-card__link {
+  display: inline-block;
+  margin-top: 4px;
+  font-size: 0.75rem;
+  color: rgba(59, 130, 246, 0.9);
+  text-decoration: none;
+}
+
+.milestone-card__link:hover {
+  text-decoration: underline;
+}
+
+.milestone-card__action {
+  flex-shrink: 0;
+}
+
+/* Claim button */
+.milestone-claim-btn {
+  min-height: 34px;
+  padding: 0 18px;
+  border: 0;
+  border-radius: 999px;
+  background: linear-gradient(135deg, #f59e0b, #f97316);
+  color: #fff;
+  font-weight: 800;
+  font-size: 13px;
+  cursor: pointer;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.milestone-claim-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 14px rgba(245, 158, 11, 0.35);
+}
+
+.milestone-claim-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+/* Claimed / Locked badges */
+.milestone-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 6px 14px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.milestone-badge--claimed {
+  background: rgba(34, 197, 94, 0.15);
+  color: #4ade80;
+}
+
+.milestone-badge--locked {
+  background: rgba(255, 255, 255, 0.04);
+  color: rgba(255, 255, 255, 0.3);
+  font-size: 1rem;
+}
+
+/* ═══════════════════════════════════════
+   Profile Tab Bar (Posts / Achievements)
+   In normal flow — sits between toolbar overlay and content.
+═══════════════════════════════════════ */
+.profile-tab-bar {
+  position: relative;
+  z-index: 11;
+  display: flex;
+  gap: 4px;
+  padding: 130px 18px 6px; /* top padding clears the overlaid toolbar (~126px) */
+  flex-shrink: 0;
+  background: #000;
+}
+
+.profile-tab {
+  flex: 1;
+  padding: 10px 0;
+  border: 0;
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.06);
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 13px;
+  font-weight: 700;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+
+.profile-tab--active {
+  background: rgba(255, 255, 255, 0.12);
+  color: #fff;
+}
+
+.profile-tab:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+/* ═══════════════════════════════════════
+   Achievement Showcase
+═══════════════════════════════════════ */
+.achievement-showcase {
+  padding: 16px 16px 24px;
+  min-height: 100%;
+}
+
+.achievement-showcase__empty {
+  text-align: center;
+  padding: 60px 20px;
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.achievement-showcase__empty h3 {
+  color: rgba(255, 255, 255, 0.7);
+  margin: 8px 0;
+}
+
+.achievement-showcase__empty p {
+  font-size: 0.85rem;
+  line-height: 1.5;
+}
+
+/* Section headers */
+.achievement-section {
+  margin-bottom: 28px;
+}
+
+.achievement-section__title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 1rem;
+  font-weight: 800;
+  color: #fff;
+  margin: 0 0 14px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+/* Milestone tile grid */
+.achievement-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.achievement-tile {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 16px;
+  border-radius: 18px;
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.15s ease;
+}
+
+.achievement-tile:hover {
+  transform: translateY(-1px);
+}
+
+/* Milestone variant — warm gradient border */
+.achievement-tile--milestone {
+  background: rgba(245, 158, 11, 0.06);
+  border: 1px solid rgba(245, 158, 11, 0.18);
+}
+
+.achievement-tile__icon {
+  font-size: 1.6rem;
+  flex-shrink: 0;
+  width: 40px;
+  text-align: center;
+}
+
+.achievement-tile__body {
+  flex: 1;
+  min-width: 0;
+}
+
+.achievement-tile__body strong {
+  display: block;
+  font-size: 0.88rem;
+  color: #fff;
+  line-height: 1.3;
+}
+
+.achievement-tile__friend {
+  display: block;
+  font-size: 0.75rem;
+  color: rgba(255, 255, 255, 0.45);
+  margin-top: 2px;
+}
+
+.achievement-tile__link {
+  flex-shrink: 0;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.08);
+  color: rgba(255, 255, 255, 0.7);
+  display: grid;
+  place-items: center;
+  font-size: 14px;
+  text-decoration: none;
+  transition: background 0.15s ease;
+}
+
+.achievement-tile__link:hover {
+  background: rgba(255, 255, 255, 0.15);
+}
+
+.achievement-tile__token {
+  font-size: 11px;
+  font-weight: 800;
+  color: rgba(245, 158, 11, 0.8);
+  background: rgba(245, 158, 11, 0.12);
+  padding: 3px 8px;
+  border-radius: 999px;
+  flex-shrink: 0;
+}
+
+/* Collectible NFT grid */
+.achievement-nft-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+}
+
+.achievement-nft-card {
+  background: rgba(124, 58, 237, 0.06);
+  border: 1px solid rgba(124, 58, 237, 0.15);
+  border-radius: 18px;
+  overflow: hidden;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.achievement-nft-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(124, 58, 237, 0.15);
+}
+
+.achievement-nft-card__image-wrap {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1;
+  overflow: hidden;
+}
+
+.achievement-nft-card__image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.achievement-nft-card__badge {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  background: linear-gradient(135deg, rgba(124, 58, 237, 0.9), rgba(59, 130, 246, 0.9));
+  color: #fff;
+  font-size: 11px;
+  font-weight: 800;
+  padding: 3px 10px;
+  border-radius: 999px;
+  backdrop-filter: blur(4px);
+}
+
+.achievement-nft-card__info {
+  padding: 10px 12px;
+}
+
+.achievement-nft-card__caption {
+  margin: 0;
+  font-size: 0.82rem;
+  color: #fff;
+  font-weight: 600;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.achievement-nft-card__link {
+  display: inline-block;
+  margin-top: 4px;
+  font-size: 0.72rem;
+  color: rgba(124, 58, 237, 0.8);
+  text-decoration: none;
+}
+
+.achievement-nft-card__link:hover {
+  text-decoration: underline;
+}

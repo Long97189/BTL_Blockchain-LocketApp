@@ -7,6 +7,7 @@ import { Link } from "react-router-dom";
 import { getAssetUrl } from "../utils/api";
 import { apiRequest } from "../utils/api";
 import { useAuth } from "../hooks/useAuth";
+import { InboxSheet, MessageThreadSheet } from "./MessageSheets";
 
 /* ── Constants ── */
 export const REACTION_OPTIONS = [
@@ -107,6 +108,7 @@ export function PostSlide({
   onAddFriend,
   onVerifyPost,
   onMintNFT,
+  onOpenMessages,
 }) {
   const total = totalReactionCount(post.reactionTotals || []);
   const isOwnPost = Number(post.author.id) === Number(currentUserId);
@@ -219,7 +221,7 @@ export function PostSlide({
 
       {/* ── Reaction bar ── */}
       <div className="locket-reactions">
-        <button className="locket-reactions__message-pill" type="button">
+        <button className="locket-reactions__message-pill" onClick={() => onOpenMessages(post)} type="button">
           💬 Send a message…
         </button>
         <div className="reaction-quickbar">
@@ -304,11 +306,17 @@ export default function PostPager({ posts, currentUserId, onAddFriend, onReloadF
   const [expandedPickerPostId, setExpandedPickerPostId] = useState(null);
   const [reactionDetailsPost, setReactionDetailsPost] = useState(null);
   const [reactionDetails, setReactionDetails] = useState({});
+  const [showInboxSheet, setShowInboxSheet] = useState(false);
+  const [messageThreadTarget, setMessageThreadTarget] = useState(null);
 
   // Sync if parent posts change
   useEffect(() => { setLocalPosts(posts); setCurrentIndex(0); }, [posts]);
 
-  const anySheetOpen = !!reactionDetailsPost || !!expandedPickerPostId;
+  const anySheetOpen =
+    !!reactionDetailsPost ||
+    !!expandedPickerPostId ||
+    showInboxSheet ||
+    !!messageThreadTarget;
 
   const touchStartY = useRef(null);
   const wheelAccum = useRef(0);
@@ -414,6 +422,23 @@ export default function PostPager({ posts, currentUserId, onAddFriend, onReloadF
     }
   };
 
+  const handleOpenMessages = (post) => {
+    setExpandedPickerPostId(null);
+
+    if (Number(post.author.id) === Number(currentUserId)) {
+      setShowInboxSheet(true);
+      return;
+    }
+
+    setMessageThreadTarget({
+      peerId: Number(post.author.id),
+      peerUsername: post.author.username,
+      peerAvatarUrl: post.author.avatarUrl,
+      postId: Number(post.id),
+      postCaption: post.caption || "",
+    });
+  };
+
   if (!localPosts.length) return null;
 
   return (
@@ -442,6 +467,7 @@ export default function PostPager({ posts, currentUserId, onAddFriend, onReloadF
               onAddFriend={onAddFriend}
               onVerifyPost={handleVerifyPost}
               onMintNFT={handleMintNFT}
+              onOpenMessages={handleOpenMessages}
             />
           </div>
         ))}
@@ -468,6 +494,22 @@ export default function PostPager({ posts, currentUserId, onAddFriend, onReloadF
         post={reactionDetailsPost}
         reactions={reactionDetails}
         onClose={() => { setReactionDetailsPost(null); setReactionDetails({}); }}
+      />
+
+      <InboxSheet
+        isOpen={showInboxSheet}
+        token={token}
+        onClose={() => setShowInboxSheet(false)}
+        onOpenThread={(threadTarget) => {
+          setShowInboxSheet(false);
+          setMessageThreadTarget(threadTarget);
+        }}
+      />
+
+      <MessageThreadSheet
+        threadTarget={messageThreadTarget}
+        token={token}
+        onClose={() => setMessageThreadTarget(null)}
       />
     </main>
   );

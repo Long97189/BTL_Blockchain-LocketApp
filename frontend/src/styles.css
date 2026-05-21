@@ -412,7 +412,7 @@ h2 {
 }
 
 .phone-toolbar--overlay {
-  top: 44px; /* sits right below status bar */
+  top: 16px;
   pointer-events: auto; /* toolbar itself is interactive */
 }
 
@@ -540,7 +540,7 @@ h2 {
   background: #000;
   display: flex;
   flex-direction: column;
-  padding-top: 130px;   /* Feed: clears the status-bar + toolbar overlay (ends ~126px) */
+  padding-top: 88px;
   padding-bottom: 4px;  /* Dock is in normal flow, no need to reserve space */
   overflow: hidden;
 }
@@ -1552,6 +1552,10 @@ a.card-badge--nft:hover {
   bottom: 0;
 }
 
+.bottom-sheet--messages {
+  z-index: 30;
+}
+
 .bottom-sheet__header {
   display: flex;
   justify-content: space-between;
@@ -1631,6 +1635,220 @@ a.card-badge--nft:hover {
 .sheet-button--danger {
   background: rgba(255, 107, 107, 0.16);
   color: #ffb5b5;
+}
+
+.bottom-sheet--thread {
+  top: 0;
+  bottom: 0;
+  max-height: none;
+  padding: 20px 18px 24px;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+  z-index: 40;
+  display: flex;
+  flex-direction: column;
+  transform: translateY(105%);
+  transition: transform 0.24s ease;
+}
+
+.bottom-sheet--thread.bottom-sheet--open {
+  transform: translateY(0);
+}
+
+.thread-context {
+  margin: 6px 0 0;
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.conversation-card {
+  width: 100%;
+  border: 0;
+  text-align: left;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 22px;
+  padding: 16px;
+  color: var(--ink);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+}
+
+.conversation-card__identity {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-width: 0;
+  flex: 1;
+}
+
+.conversation-card__avatar {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  object-fit: cover;
+  flex-shrink: 0;
+}
+
+.conversation-card__avatar--placeholder {
+  display: grid;
+  place-items: center;
+  background: #242424;
+}
+
+.conversation-card__body {
+  min-width: 0;
+  flex: 1;
+}
+
+.conversation-card__topline {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.conversation-card__topline strong {
+  font-size: 15px;
+}
+
+.conversation-card__topline span {
+  color: var(--muted);
+  font-size: 12px;
+  white-space: nowrap;
+}
+
+.conversation-card__body p {
+  margin: 6px 0 0;
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 1.5;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.conversation-card__badge {
+  min-width: 26px;
+  height: 26px;
+  border-radius: 999px;
+  background: var(--accent);
+  color: #080808;
+  display: grid;
+  place-items: center;
+  font-size: 12px;
+  font-weight: 800;
+  flex-shrink: 0;
+}
+
+.message-thread {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  flex: 1;
+  min-height: 0;
+  max-height: none;
+  overflow-y: auto;
+  padding-right: 4px;
+  margin-bottom: 14px;
+}
+
+.bottom-sheet--thread .sheet-empty {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.message-bubble-row {
+  display: flex;
+}
+
+.message-bubble-row--own {
+  justify-content: flex-end;
+}
+
+.message-bubble {
+  max-width: 82%;
+  border-radius: 22px 22px 22px 8px;
+  background: rgba(255, 255, 255, 0.08);
+  padding: 12px 14px 10px;
+}
+
+.message-bubble--own {
+  border-radius: 22px 22px 8px 22px;
+  background: rgba(242, 186, 34, 0.18);
+}
+
+.message-bubble p {
+  margin: 0;
+  line-height: 1.5;
+  word-break: break-word;
+}
+
+.message-bubble__time {
+  display: block;
+  margin-top: 8px;
+  color: rgba(255, 255, 255, 0.48);
+  font-size: 11px;
+  text-align: right;
+}
+
+.message-bubble__post-link {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-bottom: 10px;
+  padding: 10px 12px;
+  border-radius: 14px;
+  background: rgba(0, 0, 0, 0.2);
+}
+
+.message-bubble__post-link strong {
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: rgba(255, 255, 255, 0.72);
+}
+
+.message-bubble__post-link span {
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.86);
+}
+
+.message-composer {
+  display: flex;
+  gap: 10px;
+  align-items: flex-end;
+}
+
+.message-composer__input {
+  flex: 1;
+  resize: none;
+  min-height: 52px;
+  max-height: 120px;
+  padding: 14px 16px;
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.06);
+  color: #fff;
+}
+
+.message-composer__send {
+  min-width: 74px;
+  min-height: 52px;
+  border: 0;
+  border-radius: 18px;
+  background: var(--accent);
+  color: #080808;
+  font-weight: 800;
+}
+
+.message-composer__send:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
 }
 
 .empty-phone-state {
@@ -2366,7 +2584,7 @@ a.card-badge--nft:hover {
   z-index: 11;
   display: flex;
   gap: 4px;
-  padding: 130px 18px 6px; /* top padding clears the overlaid toolbar (~126px) */
+  padding: 88px 18px 6px;
   flex-shrink: 0;
   background: #000;
 }

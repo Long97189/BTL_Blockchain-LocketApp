@@ -2,6 +2,7 @@ import React, { useCallback, useEffect, useMemo, useRef, useState } from "react"
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../hooks/useAuth";
 import { apiRequest, getAssetUrl } from "../utils/api";
+import { InboxSheet, MessageThreadSheet } from "../components/MessageSheets";
 
 const REACTION_OPTIONS = [
   { key: "joy", icon: "\u{1F923}" },
@@ -153,6 +154,7 @@ function PostSlide({
   onAddFriend,
   onVerifyPost,
   onMintNFT,
+  onOpenMessages,
 }) {
   const totalReactions = totalReactionCount(post.reactionTotals || []);
   const isOwnPost = Number(post.author.id) === Number(currentUserId);
@@ -270,7 +272,7 @@ function PostSlide({
 
       {/* ── Reaction bar — below author ── */}
       <div className="locket-reactions">
-        <button className="locket-reactions__message-pill" type="button">
+        <button className="locket-reactions__message-pill" onClick={() => onOpenMessages(post)} type="button">
           Send a message…
         </button>
 
@@ -362,6 +364,8 @@ export default function Feed() {
   const [showFriendsSheet, setShowFriendsSheet] = useState(false);  // existing friends
   const [showPeopleSheet, setShowPeopleSheet] = useState(false);    // discover new friends
   const [showMenuSheet, setShowMenuSheet] = useState(false);
+  const [showInboxSheet, setShowInboxSheet] = useState(false);
+  const [messageThreadTarget, setMessageThreadTarget] = useState(null);
   const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(true);
 
@@ -370,7 +374,13 @@ export default function Feed() {
   const wheelAccum = useRef(0);
   const wheelTimer = useRef(null);
   const anySheetOpen =
-    showFriendsSheet || showPeopleSheet || showMenuSheet || !!reactionDetailsPost || !!expandedPickerPostId;
+    showFriendsSheet ||
+    showPeopleSheet ||
+    showMenuSheet ||
+    showInboxSheet ||
+    !!messageThreadTarget ||
+    !!reactionDetailsPost ||
+    !!expandedPickerPostId;
 
   /* ── Data loading ── */
   const loadFeed = useCallback(async () => {
@@ -531,6 +541,25 @@ export default function Feed() {
     }
   };
 
+  const handleOpenMessages = (post) => {
+    setExpandedPickerPostId(null);
+    setReactionDetailsPost(null);
+
+    if (Number(post.author.id) === Number(user?.id)) {
+      setShowInboxSheet(true);
+      setShowMenuSheet(false);
+      return;
+    }
+
+    setMessageThreadTarget({
+      peerId: Number(post.author.id),
+      peerUsername: post.author.username,
+      peerAvatarUrl: post.author.avatarUrl,
+      postId: Number(post.id),
+      postCaption: post.caption || "",
+    });
+  };
+
   const handleLogout = () => {
     logout();
     navigate("/login", { replace: true });
@@ -545,11 +574,6 @@ export default function Feed() {
         onTouchStart={handleTouchStart}
         onTouchEnd={handleTouchEnd}
       >
-        {/* Status bar */}
-        <div className="phone-statusbar phone-statusbar--overlay">
-          <span>4:30</span>
-        </div>
-
         {/* Toolbar */}
         <header className="phone-toolbar phone-toolbar--overlay">
           <Link className="round-icon-button" to={`/profile/${user?.id}`} aria-label="My profile">
@@ -627,6 +651,7 @@ export default function Feed() {
                       onAddFriend={handleAddFriend}
                       onVerifyPost={handleVerifyPost}
                       onMintNFT={handleMintNFT}
+                      onOpenMessages={handleOpenMessages}
                     />
                   </div>
                 ))}
@@ -744,6 +769,16 @@ export default function Feed() {
             <button className="sheet-button" onClick={() => navigate(`/profile/${user?.id}`)} type="button">
               View profile
             </button>
+            <button
+              className="sheet-button"
+              onClick={() => {
+                setShowMenuSheet(false);
+                setShowInboxSheet(true);
+              }}
+              type="button"
+            >
+              Messages
+            </button>
             <button className="sheet-button" onClick={() => navigate("/upload")} type="button">
               Upload new post
             </button>
@@ -757,6 +792,22 @@ export default function Feed() {
           post={reactionDetailsPost}
           reactions={reactionDetails}
           onClose={handleCloseReactions}
+        />
+
+        <InboxSheet
+          isOpen={showInboxSheet}
+          token={token}
+          onClose={() => setShowInboxSheet(false)}
+          onOpenThread={(threadTarget) => {
+            setShowInboxSheet(false);
+            setMessageThreadTarget(threadTarget);
+          }}
+        />
+
+        <MessageThreadSheet
+          threadTarget={messageThreadTarget}
+          token={token}
+          onClose={() => setMessageThreadTarget(null)}
         />
       </div>
     </div>

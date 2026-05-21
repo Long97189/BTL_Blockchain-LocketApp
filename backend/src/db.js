@@ -88,6 +88,29 @@ async function ensureSchema() {
 
   // ── Role-based access control ──
   await pool.query(`
+    CREATE TABLE IF NOT EXISTS messages (
+      id BIGSERIAL PRIMARY KEY,
+      sender_id BIGINT NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+      recipient_id BIGINT NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+      post_id BIGINT REFERENCES posts(id) ON DELETE SET NULL,
+      body TEXT NOT NULL,
+      created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+      read_at TIMESTAMPTZ,
+      CONSTRAINT messages_sender_recipient_check CHECK (sender_id <> recipient_id)
+    )
+  `);
+
+  await pool.query(`
+    CREATE INDEX IF NOT EXISTS idx_messages_participants_created_at
+    ON messages (sender_id, recipient_id, created_at DESC)
+  `);
+
+  await pool.query(`
+    CREATE INDEX IF NOT EXISTS idx_messages_recipient_read_at
+    ON messages (recipient_id, read_at, created_at DESC)
+  `);
+
+  await pool.query(`
     ALTER TABLE users
       ADD COLUMN IF NOT EXISTS role VARCHAR(20) NOT NULL DEFAULT 'user'
   `);

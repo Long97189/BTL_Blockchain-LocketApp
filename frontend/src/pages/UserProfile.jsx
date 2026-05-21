@@ -244,9 +244,6 @@ export default function UserProfile() {
       <div className="phone-shell phone-shell--feed">
 
         {/* ── Overlay status bar ── */}
-        <div className="phone-statusbar phone-statusbar--overlay">
-          <span>4:30</span>
-        </div>
 
         {/* ── Overlay toolbar ── */}
         <header className="phone-toolbar phone-toolbar--overlay">

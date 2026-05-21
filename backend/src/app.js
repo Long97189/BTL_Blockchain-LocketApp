@@ -8,6 +8,7 @@ const profileRoutes = require("./routes/profiles");
 const postRoutes = require("./routes/posts");
 const feedRoutes = require("./routes/feed");
 const milestoneRoutes = require("./routes/milestones");
+const messageRoutes = require("./routes/messages");
 
 const app = express();
 
@@ -33,6 +34,7 @@ app.use("/api/profiles", profileRoutes);
 app.use("/api/posts", postRoutes);
 app.use("/api/feed", feedRoutes);
 app.use("/api/milestones", milestoneRoutes);
+app.use("/api/messages", messageRoutes);
 
 app.use((error, _request, response, _next) => {
   console.error(error);

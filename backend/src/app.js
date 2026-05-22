@@ -11,11 +11,18 @@ const milestoneRoutes = require("./routes/milestones");
 const messageRoutes = require("./routes/messages");
 
 const app = express();
+const allowedOrigins = new Set(config.frontendOrigins);
 
 app.use(
   cors({
-    origin: config.frontendOrigin,
-    credentials: false,
+    origin(origin, callback) {
+      if (!origin || allowedOrigins.has(origin)) {
+        return callback(null, true);
+      }
+
+      return callback(new Error(`Origin ${origin} is not allowed by CORS.`));
+    },
+    credentials: true,
   })
 );
 app.use(morgan("dev"));

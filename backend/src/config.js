@@ -15,7 +15,14 @@ module.exports = {
     process.env.DATABASE_URL ||
     "postgresql://locket:locketpassword@localhost:5432/locketsocial",
   jwtSecret: process.env.JWT_SECRET || "locket-social-dev-secret",
-  frontendOrigin: process.env.FRONTEND_ORIGIN || "http://localhost:3000",
+  frontendOrigins: (
+    process.env.FRONTEND_ORIGINS ||
+    process.env.FRONTEND_ORIGIN ||
+    "http://localhost:3000,http://103.179.172.75:3000"
+  )
+    .split(",")
+    .map((origin) => origin.trim())
+    .filter(Boolean),
   uploadsDirectory,
   blockchainRpcUrl:
     process.env.BLOCKCHAIN_RPC_URL ||

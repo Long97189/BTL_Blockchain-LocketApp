@@ -1,6 +1,16 @@
-const rawApiUrl = process.env.REACT_APP_API_URL || "http://localhost:4000/api";
+function resolveApiRoot() {
+  try {
+    if (typeof window !== "undefined" && window.location?.hostname) {
+      return `http://${window.location.hostname}:4000/api`;
+    }
+  } catch (error) {
+    // Ignore runtime hostname resolution issues and fall back below.
+  }
 
-export const API_ROOT = rawApiUrl.replace(/\/+$/, "");
+  return "http://localhost:4000/api";
+}
+
+export const API_ROOT = resolveApiRoot().replace(/\/+$/, "");
 
 export function getAssetUrl(assetPath) {
   if (!assetPath) {
